@@ -12,9 +12,33 @@ class ProductGrid extends StatefulWidget {
 }
 
 class _ProductGridState extends State<ProductGrid> {
+  TextEditingController _searchController = TextEditingController();
+  List<Product> _filteredProducts = [];
+  String _searchQuery = '';
+
   @override
   void initState() {
     super.initState();
+    _filteredProducts = widget.products;
+
+    _searchController.addListener(() {
+      setState(() {
+        _searchQuery = _searchController.text;
+        _filterProducts();
+      });
+    });
+    _filterProducts();
+  }
+
+  void _filterProducts() {
+    if (_searchQuery.isEmpty) {
+      _filteredProducts = widget.products;
+    } else {
+      _filteredProducts = widget.products
+          .where((product) =>
+              product.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+          .toList();
+    }
   }
 
   String formatCurrency(double amount) {
@@ -26,11 +50,25 @@ class _ProductGridState extends State<ProductGrid> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Thanh tìm kiếm
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: TextField(
+            controller: _searchController,
+            decoration: InputDecoration(
+              hintText: 'Tìm kiếm sản phẩm',
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ),
         // Lưới sản phẩm
         Expanded(
           child: GridView.builder(
             padding: const EdgeInsets.all(16),
-            itemCount: widget.products.length,
+            itemCount: _filteredProducts.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 3 / 4,
@@ -51,7 +89,7 @@ class _ProductGridState extends State<ProductGrid> {
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(8)),
                       child: Image.network(
-                        widget.products[i].imageUrl,
+                        _filteredProducts[i].imageUrl,
                         fit: BoxFit.cover,
                         width: double.infinity,
                       ),
@@ -64,7 +102,7 @@ class _ProductGridState extends State<ProductGrid> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.products[i].name,
+                          _filteredProducts[i].name,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -72,7 +110,7 @@ class _ProductGridState extends State<ProductGrid> {
                         ),
                         SizedBox(height: 4),
                         Text(
-                          '${formatCurrency(widget.products[i].price)} đ',
+                          '${formatCurrency(_filteredProducts[i].price)} đ',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[600],
