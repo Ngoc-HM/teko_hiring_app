@@ -5,6 +5,8 @@ import '../widgets/product_grid.dart';
 import '../widgets/product_form.dart';
 
 class ProductManagementScreen extends StatefulWidget {
+  const ProductManagementScreen({super.key});
+
   @override
   _ProductManagementScreenState createState() =>
       _ProductManagementScreenState();
@@ -22,7 +24,7 @@ class _ProductManagementScreenState extends State<ProductManagementScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Quản lý sản phẩm',
+        title: const Text('Quản lý sản phẩm',
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 24,
