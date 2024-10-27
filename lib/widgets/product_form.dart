@@ -5,6 +5,8 @@ import '../models/product.dart';
 import '../providers/product_provider.dart';
 
 class ProductForm extends StatefulWidget {
+  const ProductForm({super.key});
+
   @override
   _ProductFormState createState() => _ProductFormState();
 }
@@ -33,7 +35,7 @@ class _ProductFormState extends State<ProductForm> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Vui lòng chọn ảnh cho sản phẩm')),
+        const SnackBar(content: Text('Vui lòng chọn ảnh cho sản phẩm')),
       );
     }
   }
@@ -49,11 +51,11 @@ class _ProductFormState extends State<ProductForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Thêm sản phẩm", style: TextStyle(fontSize: 20)),
-              SizedBox(height: 16),
+              const Text("Thêm sản phẩm", style: TextStyle(fontSize: 20)),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Tên sản phẩm',
                   hintText: 'Nhập tên sản phẩm',
                   border: OutlineInputBorder(),
@@ -67,10 +69,10 @@ class _ProductFormState extends State<ProductForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _priceController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Giá sản phẩm',
                   hintText: 'Nhập giá sản phẩm',
                   border: OutlineInputBorder(),
@@ -87,21 +89,22 @@ class _ProductFormState extends State<ProductForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
-              Row(),
-              SizedBox(height: 20),
+              const SizedBox(height: 16),
+              const Row(),
+              const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
                   onPressed: _submitForm,
-                  child: Text(
-                    'Tạo sản phẩm',
-                    style: TextStyle(fontSize: 16),
-                  ),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
+                  ),
+                  child: Text(
+                    'Tạo sản phẩm',
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               ),

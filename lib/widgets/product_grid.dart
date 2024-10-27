@@ -5,14 +5,14 @@ import '../models/product.dart';
 class ProductGrid extends StatefulWidget {
   final List<Product> products;
 
-  ProductGrid({required this.products});
+  const ProductGrid({super.key, required this.products});
 
   @override
   _ProductGridState createState() => _ProductGridState();
 }
 
 class _ProductGridState extends State<ProductGrid> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<Product> _filteredProducts = [];
   String _searchQuery = '';
 
@@ -57,7 +57,7 @@ class _ProductGridState extends State<ProductGrid> {
             controller: _searchController,
             decoration: InputDecoration(
               hintText: 'Tìm kiếm sản phẩm',
-              prefixIcon: Icon(Icons.search),
+              prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -69,7 +69,7 @@ class _ProductGridState extends State<ProductGrid> {
           child: GridView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: _filteredProducts.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 3 / 4,
               crossAxisSpacing: 16,
@@ -87,7 +87,7 @@ class _ProductGridState extends State<ProductGrid> {
                   Expanded(
                     child: ClipRRect(
                       borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(8)),
+                          const BorderRadius.vertical(top: Radius.circular(8)),
                       child: Image.network(
                         _filteredProducts[i].imageUrl,
                         fit: BoxFit.cover,
@@ -103,12 +103,12 @@ class _ProductGridState extends State<ProductGrid> {
                       children: [
                         Text(
                           _filteredProducts[i].name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           '${formatCurrency(_filteredProducts[i].price)} đ',
                           style: TextStyle(

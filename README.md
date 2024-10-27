@@ -1,6 +1,6 @@
 # teko_hiring
 
-A new Flutter project.
+TEKO APP .
 
 ## Getting Started
 
