@@ -6,7 +6,11 @@ class ProductProvider with ChangeNotifier {
   List<Product> _products = [];
   String? label;
   String? buttonText;
-  final ApiService _apiService = ApiService();
+  final ApiService _apiService;
+
+  // Cho phép apiService là một tham số tùy chọn, sử dụng instance mặc định nếu null
+  ProductProvider({ApiService? apiService})
+      : _apiService = apiService ?? ApiService();
 
   List<Product> get products => _products;
 
@@ -29,7 +33,7 @@ class ProductProvider with ChangeNotifier {
           break;
       }
     }
-    notifyListeners(); // Thông báo khi dữ liệu sản phẩm đã sẵn sàng
+    notifyListeners();
   }
 
   void addProduct(Product product) {
