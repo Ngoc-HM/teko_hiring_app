@@ -29,7 +29,7 @@ class ProductProvider with ChangeNotifier {
           break;
       }
     }
-    notifyListeners();
+    notifyListeners(); // Thông báo khi dữ liệu sản phẩm đã sẵn sàng
   }
 
   void addProduct(Product product) {

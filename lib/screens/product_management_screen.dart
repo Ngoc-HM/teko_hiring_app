@@ -13,14 +13,25 @@ class ProductManagementScreen extends StatefulWidget {
 }
 
 class _ProductManagementScreenState extends State<ProductManagementScreen> {
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
-    Provider.of<ProductProvider>(context, listen: false).fetchProducts();
+    _loadProducts();
+  }
+
+  Future<void> _loadProducts() async {
+    await Provider.of<ProductProvider>(context, listen: false).fetchProducts();
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -30,16 +41,18 @@ class _ProductManagementScreenState extends State<ProductManagementScreen> {
                 fontSize: 24,
                 fontWeight: FontWeight.bold)),
       ),
-      body: Consumer<ProductProvider>(
-        builder: (context, productProvider, _) => Column(
-          children: [
-            ProductForm(),
-            Expanded(
-              child: ProductGrid(products: productProvider.products),
+      body: _isLoading
+          ? const Center(
+              child:
+                  CircularProgressIndicator()) // Hiển thị biểu tượng loading khi đang tải
+          : Column(
+              children: [
+                ProductForm(),
+                Expanded(
+                  child: ProductGrid(products: productProvider.products),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
     );
   }
 }
